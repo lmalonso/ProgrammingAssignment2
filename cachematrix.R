@@ -14,8 +14,9 @@ makeCacheMatrix <- function(x = matrix()) {
      inv<-NULL
      ## We create closure 'set'
      set <- function(y) {
-          ## This closure sets the value of 'x' and 'inv'. The '<<-' symbol is used so it can modify 
-          ## the variables in this closure and in function 'makeCacheMatrix' 's environment
+          ## This closure sets the value of argument 'y' in variable 'x' and sets 'inv' as NULL
+          ## It is mainly used to avoid calling the main function again when we change the matrix to invert
+          ## The '<<-' symbol is used so it can modify the variables in this closure and in function 'makeCacheMatrix' 's environment
           x <<- y
           inv <<- NULL
      }
@@ -55,7 +56,7 @@ cacheSolve <- function(x, ...) {
      }
      ## This part is to avoid getting an error message when the inverse matrix can't be 
      ## calculated
-     if(det(x$get())<1.0e-10){
+     if(abs(det(x$get()))<1.0e-10){
           print("Matrix determinant is zero. Use other matrix")
      }
      else{
