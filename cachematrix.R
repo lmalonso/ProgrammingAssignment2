@@ -12,7 +12,6 @@ makeCacheMatrix <- function(x = matrix()) {
      ## function cacheSolve, so it will know if the inverse should be calculated or get it from
      ## the cache memory.
      inv<-NULL
-     
      ## We create closure 'set'
      set <- function(y) {
           ## This closure sets the value of 'x' and 'inv'. The '<<-' symbol is used so it can modify 
@@ -37,7 +36,6 @@ makeCacheMatrix <- function(x = matrix()) {
      }
      ## We return a list of the closures we created
      list(set = set, get = get, setinv = setinv, getinv = getinv)
-     
 }
 
 
@@ -45,11 +43,9 @@ makeCacheMatrix <- function(x = matrix()) {
 ## or will look for it if it is in the cached memory
 
 cacheSolve <- function(x, ...) {
-
      ## We call 'getinv' closure from 'makeCacheMatrix' function and 
      ## assign it to the variable 'inv'
      inv<-x$getinv()
-     
      ## The next if statement verifies if the variable 'inv' has an previous assigned 
      ## value or if it is NULL. If 'inv' it is not NULL, it means that the inverse 
      ## matrix was already calculated, so it calls the cached value of 'inv'
@@ -57,7 +53,6 @@ cacheSolve <- function(x, ...) {
           message("getting cached data")     
           return(inv)              ## We return 'inv' as the output of 'cacheSolve' function
      }
-     
      ## This part is to avoid getting an error message when the inverse matrix can't be 
      ## calculated
      if(det(x$get())<1.0e-10){
